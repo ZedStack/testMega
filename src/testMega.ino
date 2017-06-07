@@ -60,13 +60,29 @@
 //         Serial.println ();
 //     }
 // }
-
+#define SUMILATION
 
 int definitonPin [] = {1, 2, 3, 4};
 
 void setup () {
-    for (int i = 0; i < sizeof (definitonPin); i++)
-        pinMode (definitonPin, INPUT);
+    for (int i = 0; i < sizeof (definitonPin) / sizeof (int); i++) {
+        pinMode (definitonPin [i], INPUT);
+    }
+
+
+    #if defined SIMULATION
+        for (int i = 0; i < sizeof (definitonPin) / sizeof (int); i++) {
+            definitonPin [i] = LOW;
+        }
+        definitonPin [0] = HIGH;
+    #else
+        for (int i = 0; i < sizeof (definitonPin) / sizeof (int); i++) {
+            if (digitalRead(definitonPin [i] == HIGH)) {
+                // TODO: New algorith for detecting pins
+            }
+        }
+    #endif
+
 
 }
 void loop () {
